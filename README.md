@@ -59,7 +59,7 @@ composer.jsonに以下を記述。
 ```javascript
 {
     "require": {
-        "awesam86\imlinscraper\scraper": "~1.0"
+        "awesam86/imlinscraper": "~1.0"
     }
 }
 
