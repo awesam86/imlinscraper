@@ -20,7 +20,7 @@ use Awesam86\ImlinScraper\Scraper;
 $scraper = new Scraper('情報取得したいURL');
 ```
 
-目的ページの画像情報を取得する方法  
+〜 目的ページの画像情報を取得する方法 〜  
 下記は引数なしでメソッドを呼び出していますが  
 インスタンス生成時にページURLを引数で渡さなかった場合や、ページURLを変更したい場合は引数でページURLを渡してください。  
 また、特定の要素の子要素のみを取得したい場合などは第三引数にXPathの構文を指定することで取得することができます。
@@ -34,8 +34,11 @@ $imgsInfoArray = $scraper->GetImagesData();
 //戻り値の配列を出力
 var_dump($imgsInfoArray);
 ```
+戻り値の配列のキー  
+src => 画像URL  
+alt  => 代替テキスト  
 
-目的ページのリンク情報を取得する方法  
+〜 目的ページのリンク情報を取得する方法 〜  
 第三引数までは、画像情報の取得と同じです。  
 第四引数は、外部リンクのみ取得したい場合にtrueにしてください。（デフォルト値はfalse）  
 
@@ -49,6 +52,9 @@ $linksInfoArray = $scraper->GetLinksData();
 //戻り値の配列を出力
 var_dump($linksInfoArray);
 ```
+戻り値の配列のキー  
+href => リンク先URL  
+text  => ノード値  
 
 ## Install
 
@@ -58,9 +64,9 @@ composer.jsonに以下を記述。
 
 ```javascript
 {
-    "require": {
-        "awesam86/imlinscraper": "~1.0"
-    }
+"require": {
+"awesam86/imlinscraper": "~1.0"
+}
 }
 
 ```
