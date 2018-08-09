@@ -89,5 +89,5 @@ use Awesam86\ImlinScraper\Scraper;
 
 ## LICENCE
 
-MIT
+This software is released under the MIT License, see LICENSE
 

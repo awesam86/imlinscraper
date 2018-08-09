@@ -1,4 +1,13 @@
 <?php
+/**
+ * ImlinScraper
+ *
+ * @see       https://github.com/awesam86/imlinscraper/
+ *
+ * @author    Osamu Suga
+ * @copyright Copyright (c) 2018 Osamu Suga
+ * @license   http://opensource.org/licenses/mit-license.php This software is released under the MIT License.
+ */
 namespace Awesam86\ImlinScraper;
 
 class Scraper{
