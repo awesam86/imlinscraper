@@ -11,15 +11,18 @@
 namespace Awesam86\ImlinScraper;
 
 class Scraper{
-
+	/** @var String | String[] $url */
 	public $url;
+	/** @var String $ua */
 	public $ua;
+	/** @var DOMXPath | DOMXPath[] $xpath */
 	public $xpath;
+	/** @var String | String[] $host */
 	protected $host;
 
 	/**
-	 * @param String or Array $url
-	 * @param String $ua
+	 * @param String | String[] $url
+	 * @param String            $ua
 	 */
 	public function __construct($url = NULL,$ua = NULL){
 		$this->ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36';
@@ -30,8 +33,8 @@ class Scraper{
 
 	/**
 	 * 各インスタンス変数の初期化
-	 * @param String or Array $url
-	 * @param String $ua
+	 * @param String | String[] $url
+	 * @param String            $ua
 	 */
 	protected function init($url = NULL,$ua = NULL){
 		if(!empty($ua)) $this->ua = $ua;
@@ -85,10 +88,10 @@ class Scraper{
 
 	/**
 	 * a要素の情報を配列に格納する
-	 * @param  Object   $link_node
-	 * @param  Boolean  $external_link
-	 * @param  String   $host
-	 * @return Array    $linksDataArray
+	 * @param  DOMNodeList  $link_node
+	 * @param  Boolean      $external_link
+	 * @param  String       $host     
+	 * @return Array{href:String,text:String} $linksDataArray
 	 */
 	private function setLinksData($link_node,$external_link,$host){
 		$linksDataArray = array();
@@ -109,10 +112,10 @@ class Scraper{
 
     /**
 	 * img要素から情報を抽出する
-	 * @param  String $url
-	 * @param  String $ua
-	 * @param  String $path
-	 * @return Array  $imgsData
+	 * @param  String | String[] $url
+	 * @param  String            $ua
+	 * @param  String            $path XPathで画像情報を抽出する際に任意で設定するカスタムXPath
+	 * @return Array{src:String,alt:String} $imgsData
 	 */
     public function GetImagesData($url = NULL,$ua = NULL,$path = NULL){
     	if(!empty($url) || !empty($ua)){
@@ -146,11 +149,11 @@ class Scraper{
 
     /**
 	 * a要素から情報を抽出する
-	 * @param  String  $url
-	 * @param  String  $ua
-	 * @param  String  $path
-	 * @param  Boolean $external_link
-	 * @return Array   $linksData
+	 * @param  String | String[]  $url
+	 * @param  String             $ua
+	 * @param  String             $path XPathでリンク情報を抽出する際に任意で設定するカスタムXPath
+	 * @param  Boolean            $external_link
+	 * @return Array{href:String,text:String} $linksData
 	 */
     public function GetLinksData($url = NULL,$ua = NULL,$path = NULL,$external_link = false){
     	if(!empty($url) || !empty($ua)){
