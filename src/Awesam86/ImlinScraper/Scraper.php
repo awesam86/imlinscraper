@@ -11,15 +11,18 @@
 namespace Awesam86\ImlinScraper;
 
 class Scraper{
-
+	/** @var String | String[] $url */
 	public $url;
+	/** @var String $ua */
 	public $ua;
+	/** @var DOMXPath | DOMXPath[] $xpath */
 	public $xpath;
+	/** @var String | String[] $host */
 	protected $host;
 
 	/**
-	 * @param String or Array $url
-	 * @param String $ua
+	 * @param String | String[] $url
+	 * @param String            $ua
 	 */
 	public function __construct($url = NULL,$ua = NULL){
 		$this->ua = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.116 Safari/537.36';
@@ -29,9 +32,9 @@ class Scraper{
 	}
 
 	/**
-	 * å„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å¤‰æ•°ã®åˆæœŸåŒ–
-	 * @param String or Array $url
-	 * @param String $ua
+	 * ¸÷¥¤¥ó¥¹¥¿¥ó¥¹‰äÊý¤Î³õÆÚ»¯
+	 * @param String | String[] $url
+	 * @param String            $ua
 	 */
 	protected function init($url = NULL,$ua = NULL){
 		if(!empty($ua)) $this->ua = $ua;
@@ -55,7 +58,7 @@ class Scraper{
 	}
 
 	/**
-	 * curlã§ãƒšãƒ¼ã‚¸æƒ…å ±ã‚’å–å¾—ã™ã‚‹
+	 * curl¤Ç¥Ú©`¥¸Çéˆó¤òÈ¡µÃ¤¹¤ë
 	 * @param  String $url
 	 * @return String $html
 	 */
@@ -71,24 +74,24 @@ class Scraper{
 	}
 
 	/**
-	 * XPathã§è§£æžã§ãã‚‹ã‚ˆã†ã«$htmlã‚’å¤‰æ›ã™ã‚‹
+	 * XPath¤Ç½âÎö¤Ç¤­¤ë¤è¤¦¤Ë$html¤ò‰ä“Q¤¹¤ë
 	 * @param  String   $html
 	 * @return DOMXPath $xpath
 	 */
 	protected function XPath($html){
 		$dom = new \DOMDocument();
-		//htmlæ–‡å­—åˆ—ã‚’èª­ã¿è¾¼ã‚€ï¼ˆhtmlã«èª¤ã‚ŠãŒã‚ã‚‹å ´åˆã‚¨ãƒ©ãƒ¼ãŒå‡ºã‚‹ã®ã§@ã‚’ã¤ã‘ã‚‹ï¼‰
+		//htmlÎÄ×ÖÁÐ¤òÕi¤ßÞz¤à£¨html¤ËÕ`¤ê¤¬¤¢¤ëˆöºÏ¥¨¥é©`¤¬³ö¤ë¤Î¤Ç@¤ò¤Ä¤±¤ë£©
 		@$dom->loadHTML($html);
 		$xpath = new \DOMXPath($dom);
 		return $xpath;
 	}
 
 	/**
-	 * aè¦ç´ ã®æƒ…å ±ã‚’é…åˆ—ã«æ ¼ç´ã™ã‚‹
-	 * @param  Object   $link_node
-	 * @param  Boolean  $external_link
-	 * @param  String   $host
-	 * @return Array    $linksDataArray
+	 * aÒªËØ¤ÎÇéˆó¤òÅäÁÐ¤Ë¸ñ¼{¤¹¤ë
+	 * @param  DOMNodeList  $link_node
+	 * @param  Boolean      $external_link
+	 * @param  String       $host     
+	 * @return Array{href:String,text:String} $linksDataArray
 	 */
 	private function setLinksData($link_node,$external_link,$host){
 		$linksDataArray = array();
@@ -108,11 +111,12 @@ class Scraper{
 	}
 
     /**
-	 * imgè¦ç´ ã‹ã‚‰æƒ…å ±ã‚’æŠ½å‡ºã™ã‚‹
-	 * @param  String $url
-	 * @param  String $ua
-	 * @param  String $path
-	 * @return Array  $imgsData
+	 * imgÒªËØ¤«¤éÇéˆó¤ò³é³ö¤¹¤ë
+	 * @param  String | String[] $url
+	 * @param  String            $ua
+	 * @param  String            $path XPath¤Ç»­ÏñÇéˆó¤ò³é³ö¤¹¤ëëH¤ËÈÎÒâ¤ÇÔO¶¨¤¹¤ë¥«¥¹¥¿¥àXPath
+	 * @return Array{src:String,alt:String} $imgsData
+	 * @throws InvalidArgumentException $this->url¤¬¿Õ¤ÎˆöºÏ
 	 */
     public function GetImagesData($url = NULL,$ua = NULL,$path = NULL){
     	if(!empty($url) || !empty($ua)){
@@ -145,12 +149,13 @@ class Scraper{
     }
 
     /**
-	 * aè¦ç´ ã‹ã‚‰æƒ…å ±ã‚’æŠ½å‡ºã™ã‚‹
-	 * @param  String  $url
-	 * @param  String  $ua
-	 * @param  String  $path
-	 * @param  Boolean $external_link
-	 * @return Array   $linksData
+	 * aÒªËØ¤«¤éÇéˆó¤ò³é³ö¤¹¤ë
+	 * @param  String | String[]  $url
+	 * @param  String             $ua
+	 * @param  String             $path XPath¤Ç¥ê¥ó¥¯Çéˆó¤ò³é³ö¤¹¤ëëH¤ËÈÎÒâ¤ÇÔO¶¨¤¹¤ë¥«¥¹¥¿¥àXPath
+	 * @param  Boolean            $external_link
+	 * @return Array{href:String,text:String} $linksData
+	 * @throws InvalidArgumentException $this->url¤¬¿Õ¤ÎˆöºÏ
 	 */
     public function GetLinksData($url = NULL,$ua = NULL,$path = NULL,$external_link = false){
     	if(!empty($url) || !empty($ua)){
